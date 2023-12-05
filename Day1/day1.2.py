@@ -25,9 +25,8 @@ number_dict = {
 # Read the lines of the inputfile and search for the patterns
 result = 0
 for line in lines_list:
-    digits = []
     matched_digits = re.findall("\d|one|two|three|four|five|six|seven|eight|nine",  line)
-   
+    
     # Take out the first and last match
     firstlast_digits = [matched_digits[0], matched_digits[-1]]
     
