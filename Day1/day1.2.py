@@ -8,6 +8,7 @@ with open(file_path, 'r') as file:
     # Read each line and append it to the list
     for line in file:
         lines_list.append(line.strip())  # Use strip() to remove trailing newline characters or extra spaces
+
 # Replacement dict
 number_dict = {
     "one": "1",
@@ -26,22 +27,23 @@ result = 0
 for line in lines_list:
     digits = []
     matched_digits = re.findall("\d|one|two|three|four|five|six|seven|eight|nine",  line)
-    #print(matched_digits)
+   
     # Take out the first and last match
     firstlast_digits = [matched_digits[0], matched_digits[-1]]
-    #print(firstlast_digits)
+    
     # replace the words with numbers
     index = 0
-    for value in firstlast_digits:
-        if value in number_dict.keys():
-            firstlast_digits[index] = number_dict[value]
+    for number in firstlast_digits:
+        if number in number_dict.keys():
+            firstlast_digits[index] = number_dict[number]
         index += 1
-    #print(firstlast_digits)
-    # stick the two values to each other
+    
+    # stick the two numbers to each other
     firstlast_digits = firstlast_digits[0] + firstlast_digits[1]
-    print(firstlast_digits)
+    
     # convert them to integers
     firstlast_digits = int(firstlast_digits)
+    print(firstlast_digits)
     #print(type(firstlast_digits))
     # sum up the integers
     result = result + firstlast_digits
