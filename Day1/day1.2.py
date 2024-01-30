@@ -1,16 +1,3 @@
-#STILL NOT FINISHED
-import re
-
-# Open the file in read mode
-file_path = '/media/sf_SF/Fedora/AdventOfCode2023/Day1/input.txt'  # Replace this with the path to your file
-lines_list = []
-
-with open(file_path, 'r') as file:
-    # Read each line and append it to the list
-    for line in file:
-        lines_list.append(line.strip())  # Use strip() to remove trailing newline characters or extra spaces
-
-# Replacement dict
 number_dict = {
     "one": "1",
     "two": "2",
@@ -22,32 +9,49 @@ number_dict = {
     "eight": "8",
     "nine": "9"
 }
+firstDigit = []
+lastDigit = []
+file_path = 'input.txt'
+with open(file_path, 'r') as file:
+    # Read each line and append it to the list
+    for line in file: 
+        line = line.strip()
+        found = False
+        for i in range(len(line)):
+            if line[i].isdigit():
+                firstDigit.append(line[i])
+                found = True
+                break
+            for k, v in number_dict.items():
+                if line[i:].startswith(k):
+                    firstDigit.append(v)
+                    found = True
+                    break
+            if found:
+                break
+        found = False
+        for i in range(len(line)-1 , -1, -1):
+            if line[i].isdigit():
+                lastDigit.append(line[i])
+                found = True
+                break
+            for k, v in number_dict.items():
+                if line[i:].startswith(k):
+                    lastDigit.append(v)
+                    found = True
+                    break
+            if found:
+                break
 
-# Read the lines of the inputfile and search for the patterns
-result = 0
-for line in lines_list:
-    matched_digits = re.findall("\d|one|two|three|four|five|six|seven|eight|nine",  line)
-    
-    # Take out the first and last match
-    firstlast_digits = [matched_digits[0], matched_digits[-1]]
-    
-    # replace the words with numbers
-    index = 0
-    for number in firstlast_digits:
-        if number in number_dict.keys():
-            firstlast_digits[index] = number_dict[number]
-        index += 1
-    
-    # stick the two numbers to each other
-    firstlast_digits = firstlast_digits[0] + firstlast_digits[1]
-    
-    # convert them to integers
-    firstlast_digits = int(firstlast_digits)
-    print(firstlast_digits)
-    #print(type(firstlast_digits))
-    # sum up the integers
-    result = result + firstlast_digits
-print(result)
-    
+    # print(firstDigit)
+    # print(lastDigit)
+    stringResult = [str(item1) + str(item2) for item1, item2 in zip(firstDigit, lastDigit)]
+    # Convert everything to an integer
+    finalResult = []
+    for i in stringResult:
+        i = int(i)
+        finalResult.append(i)
 
-                 
+    # Sum it up
+    sum = sum(finalResult)
+    print(sum)
